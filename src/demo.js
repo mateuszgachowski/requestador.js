@@ -1,7 +1,10 @@
 'use strict';
 
 import superagent from 'superagent';
+import superagentUse from 'superagent-use';
 import Requestador from './requestador';
+
+const request = superagentUse(superagent);
 
 const req = new Requestador({
     retryDelayBase: 5,
@@ -18,9 +21,11 @@ const req = new Requestador({
     debug: true
 });
 
-superagent
-    .get('http://nonexistingsiteontheweb.com/')
-    .use(req.plugin())
+// Use the plugin globally for all requests
+request.use(req.plugin());
+
+request
+    .get('http://demo0636020.mockable.io/test')
     .timeout(1)
     .end(function(err, res) {
         console.log(err ? err : 'res ');
