@@ -1,0 +1,32 @@
+{
+    "esversion": 6,
+    "supernew": true,
+    "trailing": true,
+    "white": true,
+    "strict": true,
+    "latedef": "nofunc",
+    "laxbreak": true,
+    "noempty": true,
+    "nomen": true,
+    "noarg": true,
+    "unused": false,
+    "maxlen": 220,
+    "eqeqeq": true,
+    "indent": 4,
+    "newcap": true,
+    "quotmark": "single",
+    "immed": true,
+    "nonbsp": true,
+    "browser": true,
+    "bitwise": false,
+    "curly": true,
+    "undef": true,
+    "nonew": true,
+    "forin": true,
+    "devel": true,
+    "node": true,
+
+    "globals": {
+
+    }
+}

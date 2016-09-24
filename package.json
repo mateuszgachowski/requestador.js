@@ -1,0 +1,34 @@
+{
+  "name": "requestador.js",
+  "version": "1.0.0",
+  "description": "Requestador lets you handle request problems with ease and fun",
+  "main": "src/requestador.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateuszgachowski/requestador.js.git"
+  },
+  "keywords": [
+    "request",
+    "support",
+    "handle",
+    "request"
+  ],
+  "author": "Mateusz Gachowski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mateuszgachowski/requestador.js/issues"
+  },
+  "homepage": "https://github.com/mateuszgachowski/requestador.js#readme",
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "superagent": "^2.3.0"
+  },
+  "dependencies": {
+    "superagent-throttle": "^0.1.1"
+  }
+}
