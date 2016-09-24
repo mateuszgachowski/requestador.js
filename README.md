@@ -23,7 +23,7 @@ Settings:
     // base, min amount of seconds for next try
     retryDelayBase: 5,
 
-    // multiplier add more time with each request
+    // multiplier adds more time with each request
     // can be a simple number, then its counted like this:
     // retryDelayBase + (REQ_ATTEMPT * retryDelayMultiplier * retryDelayBase)
     retryDelayMultiplier: 2,
