@@ -19,22 +19,9 @@ const req = new Requestador({
 });
 
 superagent
-    .get('http://placekitten.com/100/' + (100))
+    .get('http://nonexistingsiteontheweb.com/')
     .use(req.plugin())
     .timeout(1)
     .end(function(err, res) {
         console.log(err ? err : 'res ');
     });
-
-
-function test() {
-    superagent
-        .get('http://ttttttttttt1232132121.com/')
-        .use(req.plugin())
-        .timeout(1)
-        .end(function(err, res) {
-            console.log(err ? err : 'res ');
-        });
-}
-
-setTimeout(test, 8000);
