@@ -1,7 +1,7 @@
 'use strict';
 
 export default function () {
-    const timeout = this._timeout;
+    const timeout = this.request._timeout;
 
     // this.fireEvents('timeout', this.retryRequest.bind(this), this.request);
     this.flashUser();
