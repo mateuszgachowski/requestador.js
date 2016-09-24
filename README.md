@@ -4,6 +4,8 @@ Requestador lets you handle request problems with ease and fun!
 ## Installation
 
 Deps:
+- [superagent](https://github.com/visionmedia/superagent) (installed by npm)
+
 ```
 npm install
 npm install -g webpack-cli // in case you don't have
@@ -74,6 +76,8 @@ const req = new Requestador({
     debug: true
 });
 
+
+// Now works only as plugin for superagent
 superagent
     .get('http://nonexistingsiteontheweb.com/')
     .use(req.plugin())
