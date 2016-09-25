@@ -49,11 +49,23 @@ class Requestador {
         return pluginSetup.bind(this);
     }
 
+    // hack to treat aborted request again as "to be sent"
+    // `timeout` is the only thing that must be stored
+    resetRequestStatus (request, timeout) {
+        request.abort();
+        request._aborted = false;
+        request.timedout = false;
+        request.timeout(timeout);
+        delete request._timer;
+    }
+
     retryRequest () {
         this.requestAttempts++;
         if (!this.request) {
             throw new Error('No request to replay');
         }
+
+        this.resetRequestStatus(this.request, this.request._cachedTimeout);
         this.request.end(this.request._callback);
     }
 
@@ -69,19 +81,34 @@ class Requestador {
         return this.options.retryDelayBase + (this.requestAttempts * retryDelayMultiplier * this.options.retryDelayBase);
     }
 
-    flashUser () {
-        const msgWrapper = this.options.messagesWrapper;
+    setFlashMessage (status, secondsToRetry = null) {
         const msg = this.options.messages;
 
-        let secondsToRetry = this.getRetryTime();
+        switch (status) {
+            case 'timeout':
+                this.flashElement.innerHTML = msg.timeout.replace('{{ seconds }}', secondsToRetry);
+                break;
+            case 'retrying':
+                this.flashElement.innerHTML = msg.retrying;
+                break;
+            case 'connected':
+                this.flashElement.innerHTML = msg.connected;
+                break;
+            default:
+
+        }
+    }
+
+    flashUser () {
+        const msgWrapper = this.options.messagesWrapper;
+        const secondsToRetry = this.getRetryTime();
 
         this.removeFlashElement();
 
         this.flashElement = document.createElement('p');
-        this.flashElement.innerHTML = msg.timeout.replace('{{ seconds }}', secondsToRetry);
+        this.setFlashMessage('timeout', secondsToRetry);
 
         msgWrapper.appendChild(this.flashElement);
-
         setTimeout(this.updateFlashUser.bind(this, secondsToRetry), 1000);
     }
 
@@ -93,18 +120,18 @@ class Requestador {
 
         --secondsToRetry;
 
-        flashElement.innerHTML = msg.timeout.replace('{{ seconds }}', secondsToRetry);
+        this.setFlashMessage('timeout', secondsToRetry);
 
         if (secondsToRetry > 0) {
             setTimeout(context.updateFlashUser.bind(context, secondsToRetry), 1000);
         } else {
             context.retryRequest.call(context);
-            flashElement.innerHTML = msg.retrying;
+            this.setFlashMessage('retrying');
 
             this.request.on('end', function () {
-                flashElement.innerHTML = msg.connected;
+                this.setFlashMessage('connected');
                 setTimeout(context.removeFlashElement.bind(context), 1000);
-            });
+            }.bind(this));
         }
     }
 
