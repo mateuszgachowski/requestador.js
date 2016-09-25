@@ -47,7 +47,10 @@ Settings:
         retrying: 'Trying again...',
 
         // shown for several seconds and disappears
-        connected: 'OK, We are back again :)'
+        connected: 'OK, We are back again :)',
+
+        // retry now button, shown while waiting
+        retryButton: 'Retry now'
     },
 
     // prints additional info to console
@@ -71,7 +74,8 @@ const req = new Requestador({
     messages: {
         timeout: '<b>Connection error.</b> Retrying in {{ seconds }}s',
         retrying: 'Trying again...',
-        connected: 'OK, We are back again :)'
+        connected: 'OK, We are back again :)',
+        retryButton: 'Retry now'
     },
     debug: true
 });
